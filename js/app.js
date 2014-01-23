@@ -3,7 +3,7 @@ App = Ember.Application.create();
 //init services
 SC.initialize({
 	client_id: "1e954d18122fb00918262edc154ceae9",
-	redirect_uri: "http://localhost/fuze/callbacks/soundcloud.html",
+	redirect_uri: "fuze.dayoftheduck.com/callbacks/soundcloud.html",
 });
 if ($.cookie('soundcloud')) SC.accessToken($.cookie('soundcloud'));
 
