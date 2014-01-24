@@ -1,10 +1,17 @@
 App = Ember.Application.create();
 
 //init services
-SC.initialize({
-	client_id: "1e954d18122fb00918262edc154ceae9",
-	redirect_uri: "fuze.dayoftheduck.com/callbacks/soundcloud.html",
-});
+if (window.location.host == "localhost") {
+	SC.initialize({
+		client_id: "7eadfcb24859c38770417ef858756544",
+		redirect_uri: "localhost/fuze/callbacks/soundcloud.html",
+	});	
+} else {
+	SC.initialize({
+		client_id: "1e954d18122fb00918262edc154ceae9",
+		redirect_uri: "http://fuze.dayoftheduck.com/callbacks/soundcloud.html",
+	});	
+}
 if ($.cookie('soundcloud')) SC.accessToken($.cookie('soundcloud'));
 
 App.Router.map(function() {
