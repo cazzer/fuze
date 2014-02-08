@@ -57,10 +57,10 @@
 		<div class="col-md-6">
 			{{#if title}}
 			<h3>{{title}}</h3>
-			<p>This is where content will be played.</p>
 			{{else}}
 			<p>Ahh, something went wrong</p>
 			{{/if}}
+			<iframe id="soundcloud-player"></iframe>
 		</div>
 		<div class="col-md-6">
 			{{outlet}}
@@ -112,6 +112,7 @@
 	<script src="js/libs/ember-data.js"></script>
 	<script src="js/libs/bootstrap.min.js"></script>
 	<script src="//connect.soundcloud.com/sdk.js"></script>
+	<script src="https://w.soundcloud.com/player/api.js"></script>
 	<script src="js/app.js"></script>
 	<!-- to activate the test runner, add the "?test" query string parameter -->
 	<script src="tests/runner.js"></script>

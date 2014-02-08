@@ -59,16 +59,11 @@ App.PlayRoute = Ember.Route.extend({
 	model: function(params) {
 		return $.getJSON(services.findBy('name', 'Soundcloud')
 				.getUrl('/tracks/' + params.content_id + '.json')).then(function(data) {
-			SC.stream('/tracks/' + params.content_id, {autoPlay: false},
-				function(content) {
-					if (the_content.playState == 1) {
-						the_content.stop();
-					}
-					the_content = content;
-					the_content.play();
-				});
 			return data;
 		});
+	},
+	afterModel: function() {
+		soundcloudPlayer = SC.Widget("soundcloud-player");
 	}
 });
 
