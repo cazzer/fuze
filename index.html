@@ -10,6 +10,7 @@
 </head>
 <body>
 	<script type="text/x-handlebars">
+		<!--
 		<header class="navbar navbar-inverse" role="banner">
 			<div class="container">
 				<div class="navbar-header">
@@ -46,7 +47,7 @@
 					</ul>
 				</nav>
 			</div>
-		</header>
+		</header>-->
 		<div class="container-fluid">
 			<div class="row-fluid">
 				{{outlet}}
@@ -54,16 +55,73 @@
 		</div>
 	</script>
 	<script type="text/x-handlebars" id="play">
-		<div class="col-md-6">
-			{{#if title}}
-			<h3>{{title}}</h3>
+		<div class="col-md-3">
+			play area
+		</div>
+		<div class="col-md-3">
+			<div class="navbar navbar-inverse">
+				<div class="container">
+					<navrole="navigation">
+						<ul class="nav navbar-nav">
+						<li>{{#link-to 'queue'}}Queue{{/link-to}}</li>
+						<li>{{#link-to 'playlists'}}Playlists{{/link-to}}</li>
+					</ul>
+					</nav>
+				</div>
+			</div>
+			{{#if contents}}
+		    <ul class="results list-group">
+		    	{{#each results}}
+		    	<li class="list-group-item" {{action 'play' this}}>
+	    			<div class="col-md-3">
+			    		<img {{bind-attr src="artwork_url"}} alt="content image" class="img-thumbnail">	    				
+	    			</div>
+		    		<div class="col-md-9">
+		    			<h4>{{title}}</h4>
+		    		</div>
+		    	</li>
+				{{/each}}    
+			</ul>
 			{{else}}
-			<p>Ahh, something went wrong</p>
-			{{/if}}
-			<iframe id="soundcloud-player"></iframe>
+			add something!
+			{{/if}}	
 		</div>
 		<div class="col-md-6">
-			{{outlet}}
+			<div class="navbar navbar-inverse">
+				<div class="container">
+					<nav role="navigation">
+						<form class="navbar-form navbar-left" {{action "search" on="submit"}}>
+							<div class="form-group">
+								{{input valueBinding="query" class="form-control" placeholder="search..."}}
+							</div>
+							<button type="submit" class="btn btn-default">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+						</form>
+					</nav>
+				</div>
+			</div> 
+			{{#if results}}
+		    <ul class="results list-group">
+		    	{{#each results}}
+		    	<li class="list-group-item col-md-6" {{action 'addToQueue' this}}>
+		    		<a>
+		    			<div class="col-md-3">
+				    		<img {{bind-attr src="artwork_url"}} alt="content image" class="img-thumbnail">	    				
+		    			</div>
+			    		<div class="col-md-9">
+			    			<h4>{{title}}</h4>
+			    		</div>
+		    		</a>
+		    	</li>
+				{{/each}}
+				<li class="list-group-item col-md-12">
+					<h4>Load More</h4>
+				</li>     
+			</ul>
+			{{else}}
+			say something!
+			{{/if}}	
 		</div>
 	</script>
 	<script type="text/x-handlebars" id="search">
