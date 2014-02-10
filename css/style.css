@@ -7,3 +7,7 @@ b.status {
 	height: 8px;
 	border-radius: 4px;
 }
+
+.list-group li {
+	height: 84px;
+}

@@ -9,170 +9,78 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<script type="text/x-handlebars">
-		<!--
-		<header class="navbar navbar-inverse" role="banner">
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="col-md-3">
+				play area
+			</div>
+			<div id="queueContainer" class="col-md-3">
+			</div>
+			<div id="searchContainer" class="col-md-6">
+			</div>
+		</div>
+	</div>
+	<script id="queue" type="text/ractive">
+		<div class="navbar navbar-inverse">
 			<div class="container">
-				<div class="navbar-header">
-					<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					</button>
-					<a href="#" class="navbar-brand">Fuze</a>
-				</div>
-				<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
-					<form class="navbar-form navbar-left" role="search">
-						<div class="form-group">
-							{{input valueBinding="query" class="form-control" placeholder="search..."}}
-						</div>
-						<button type="submit" class="btn btn-default" {{action search target="controller"}}>
-							<span class="glyphicon glyphicon-search"></span>
-						</button>	
-					</form>
+				<nav role="navigation">
 					<ul class="nav navbar-nav">
-						<li>{{#link-to 'queue'}}Queue{{/link-to}}</li>
-						<li>{{#link-to 'playlists'}}Playlists{{/link-to}}</li>
-					</ul>
-					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Services <b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								{{#each services}}
-								<li><a {{action 'connectTo' this}} href="#">{{name}} <span {{bind-attr class=":glyphicon :pull-right class"}}></span></a></li>
-								{{/each}}
-							</ul>
-						</li>
+						<li>queue</li>
+						<li>playlists</li>
 					</ul>
 				</nav>
 			</div>
-		</header>-->
-		<div class="container-fluid">
-			<div class="row-fluid">
-				{{outlet}}
-			</div>
 		</div>
-	</script>
-	<script type="text/x-handlebars" id="play">
-		<div class="col-md-3">
-			play area
-		</div>
-		<div class="col-md-3">
-			<div class="navbar navbar-inverse">
-				<div class="container">
-					<navrole="navigation">
-						<ul class="nav navbar-nav">
-						<li>{{#link-to 'queue'}}Queue{{/link-to}}</li>
-						<li>{{#link-to 'playlists'}}Playlists{{/link-to}}</li>
-					</ul>
-					</nav>
-				</div>
-			</div>
-			{{#if contents}}
-		    <ul class="results list-group">
-		    	{{#each results}}
-		    	<li class="list-group-item" {{action 'play' this}}>
-	    			<div class="col-md-3">
-			    		<img {{bind-attr src="artwork_url"}} alt="content image" class="img-thumbnail">	    				
-	    			</div>
-		    		<div class="col-md-9">
-		    			<h4>{{title}}</h4>
-		    		</div>
-		    	</li>
-				{{/each}}    
-			</ul>
-			{{else}}
-			add something!
-			{{/if}}	
-		</div>
-		<div class="col-md-6">
-			<div class="navbar navbar-inverse">
-				<div class="container">
-					<nav role="navigation">
-						<form class="navbar-form navbar-left" {{action "search" on="submit"}}>
-							<div class="form-group">
-								{{input valueBinding="query" class="form-control" placeholder="search..."}}
-							</div>
-							<button type="submit" class="btn btn-default">
-								<span class="glyphicon glyphicon-search"></span>
-							</button>
-						</form>
-					</nav>
-				</div>
-			</div> 
-			{{#if results}}
-		    <ul class="results list-group">
-		    	{{#each results}}
-		    	<li class="list-group-item col-md-6" {{action 'addToQueue' this}}>
-		    		<a>
-		    			<div class="col-md-3">
-				    		<img {{bind-attr src="artwork_url"}} alt="content image" class="img-thumbnail">	    				
-		    			</div>
-			    		<div class="col-md-9">
-			    			<h4>{{title}}</h4>
-			    		</div>
-		    		</a>
-		    	</li>
-				{{/each}}
-				<li class="list-group-item col-md-12">
-					<h4>Load More</h4>
-				</li>     
-			</ul>
-			{{else}}
-			say something!
-			{{/if}}	
-		</div>
-	</script>
-	<script type="text/x-handlebars" id="search">
-		<div class="container-fluid">
-			<div class="row-fluid">
-				<p>search</p>
-			</div>
-			<ul class="row-fluid">
-				{{#each}}
-				<li class="span3">
-					{{#link-to 'play' this}}{{title}}{{/link-to}}
-				</li>
-				{{/each}}
-			</ul>
-		</div>
-	</script>
-	<script type="text/x-handlebars" id="playlists">
-		<ul>
-			{{#each}}
-			<li class="col-md-12">{{#link-to 'playlist' this}}{{title}}{{/link-to}}</li>
-			{{/each}}
+	    <ul class="queue list-group">
+	    	{{#queue}}
+	    	<li class="list-group-item">
+    			<div class="col-md-3">
+		    		<img src="{{artwork_url}}" alt="content image" class="img-thumbnail">	    				
+    			</div>
+	    		<div class="col-md-9">
+	    			<h4>{{title}}</h4>
+	    		</div>
+	    	</li>
+			{{/queue}}    
 		</ul>
 	</script>
-	<script type="text/x-handlebars" id="playlist">
-		<div class="container-fluid">
-			<h3>{{title}}</h3>
-			<ul>
-				{{#each tracks}}
-				<li>{{#link-to 'play' this}}{{title}}{{/link-to}}</li>
-				{{/each}}
-			</ul>
-		</div>
-	</script>
-	<script type="text/x-handlebars" id="queue">
-		
-	</script>
-	<script type="text/x-handlebars" id="welcome">
-		<div class="jumbotron">
-			<p>Welcome to Fuze.</p>
-		</div>
+	<script id="search" type="text/ractive">
+		<div class="navbar navbar-inverse">
+			<div class="container">
+				<nav role="navigation">
+					<form on-submit="search" class="navbar-form navbar-left">
+						<div class="form-group">
+							<input value="{{query}}" class="form-control" placeholder="search...">
+						</div>
+						<button type="submit" class="btn btn-default">
+							<span class="glyphicon glyphicon-search"></span>
+						</button>
+					</form>
+				</nav>
+			</div>
+		</div> 
+	    <ul class="results list-group">
+	    	{{#results:i}}
+	    	<li class="list-group-item col-md-6" on-click="addToQueue" data-index="{{i}}">
+    			<div class="col-md-3">
+		    		<img src="{{artwork_url}}" alt="content image" class="img-thumbnail">	    				
+    			</div>
+	    		<div class="col-md-9">
+	    			<h4>{{title}}</h4>
+	    		</div>
+	    	</li>
+			{{/results}}
+			<li class="list-group-item col-md-12">
+				<h4>Load More</h4>
+			</li>     
+		</ul>
 	</script>
 	<script src="js/libs/jquery-1.10.2.js"></script>
 	<script src="js/libs/jquery.cookie.js"></script>
-	<script src="js/libs/handlebars-1.1.2.js"></script>
-	<script src="js/libs/ember-1.3.1.js"></script>
-	<script src="js/libs/ember-data.js"></script>
+	<script src="js/libs/Ractive.js"></script>
 	<script src="js/libs/bootstrap.min.js"></script>
 	<script src="//connect.soundcloud.com/sdk.js"></script>
-	<script src="https://w.soundcloud.com/player/api.js"></script>
+	<script src="//w.soundcloud.com/player/api.js"></script>
 	<script src="js/app.js"></script>
-	<!-- to activate the test runner, add the "?test" query string parameter -->
-	<script src="tests/runner.js"></script>
-</body>
+0</body>
 </html>

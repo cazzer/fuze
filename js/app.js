@@ -23,9 +23,6 @@ var services =  [
 		}
 	}
 ];
-
-App = Ember.Application.create();
-
 //init services
 if (window.location.host == "localhost") {
 	SC.initialize({
@@ -40,155 +37,39 @@ if (window.location.host == "localhost") {
 }
 if ($.cookie('soundcloud')) SC.accessToken($.cookie('soundcloud'));
 
-App.Router.map(function() {
-	
-	this.resource('welcome');
-	this.resource('play', {queryParams: ['content', 'queue', 'query']});
-	this.resource('queue', {path: 'queue/:queue_id'});
-	this.resource('search', {path: 'search/:query'});
-	this.resource('playlists');
-	this.resource('playlist', {path: 'playlist/:playlist_id'});
-});
+var search,
+	queue,
+	play;
 
-App.ApplicationRoute = Ember.Route.extend({
-	
-	model: function() {
-		return {services: services};
+search = new Ractive({
+	el: "searchContainer",
+	template: "#search",
+	data: {
+		query: "",
+		results: []
 	}
 });
 
-App.ApplicationController = Ember.ObjectController.extend({
-	
-	actions: {
-		search: function() {
-			this.transitionToRoute('play', {queryParams: {query: this.get('query')}});
-		},
-		connectTo: function(service) {
-			service.connect();
-		}
-	}
+search.on('search', function(e) {
+	e.original.preventDefault();
+	var queryString = "?q=" + this.get('query') + "&limit=20",
+		ctrl = this;
+	$.getJSON(services[0]
+			.getUrl('/tracks' + queryString)).then(function(data) {
+				ctrl.set('results', data);
+			});
 });
 
-App.PlayController = Ember.ArrayController.extend({
-	queryParams: ['content', 'queue', 'query'],
-	content: null,
-	queue: null,
-	query: null,
-	
-	
-	contents: [],
-	results: [],
-	
-	queryField: Ember.computed.oneWay('query'),
-	actions: {
-		search: function() {
-			var ctrl = this;
-			if (!this.query) return;
-			this.transitionToRoute('play', {queryParams: {query: this.query}});
-			var queryString = "?q=" + this.query + "&limit=20";
-			$.getJSON(services.findBy('name', 'Soundcloud')
-					.getUrl('/tracks' + queryString)).then(function(data) {
-						ctrl.set('results', data);
-					});
-		},
-		addToQueue: function(content) {
-			var tempContents = this.contents;
-			tempContents.push(content);
-			this.set('contents', tempContents);
-		}
-	}
+search.on('addToQueue', function(e) {
+	var content = this.get('results')[e.node.getAttribute('data-index')];
+	console.log(content);
+	queue.get('queue').push(content);
 });
 
-App.PlayRoute = Ember.Route.extend({
-	/*
-	model: function(params) {
-		if (!params.query) return [];
-		var query = "?q=" + params.query + "&limit=10";
-		return {
-			results: $.getJSON(services.findBy('name', 'Soundcloud')
-							.getUrl('/tracks' + query)).then(function(data) {
-								return data;
-					})
-		};
-	},
-	actions: {
-		search: function() {
-			this.refresh();
-		},
-		queryParamsDidChange: function() {
-			this.refresh();
-		}
-	}
-	*/
-});
-
-/**
-App.PlayController = Ember.ArrayController.extend({
-	queryParams: ['content', 'queue', 'query'],
-	
-	//queryField: Ember.computed.oneWay('query'),
-	actions: {
-		search: function() {
-			this.set('query', this.get('queryField'));
-		}
+queue = new Ractive({
+	el: "queueContainer",
+	template: "#queue",
+	data: {
+		queue: []
 	}
 });
-
-App.PlayRoute = Ember.Route.extend({
-	
-	model: function(params) {
-		return {
-				content: $.getJSON(services.findBy('name', 'Soundcloud')
-						.getUrl('/tracks/' + params.content_id + '.json'))
-						.then(function(data) {
-							return data;
-						}),
-				query: params.query
-		}
-	},
-	actions: {
-		queryParamsDidChange: function() {
-			this.refresh();
-		}
-	},
-	afterModel: function() {
-	//	soundcloudPlayer = SC.Widget("soundcloud-player");
-	}
-});
-*/
-
-App.SearchRoute = Ember.Route.extend({
-
-	model: function(params) {
-		if (!params.query) return [];
-		var query = "?q=" + params.query + "&limit=10";
-		return $.getJSON(services.findBy('name', 'Soundcloud')
-				.getUrl('/tracks' + query)).then(function(data) {
-			return data;
-		});
-	}
-});
-
-App.PlaylistsRoute = Ember.Route.extend({
-	
-	model: function() {
-		return $.getJSON(services.findBy('name', 'Soundcloud')
-				.getUrl('/me/playlists.json')).then(function(data) {
-			return data;
-		});
-	}
-});
-
-App.PlaylistRoute = Ember.Route.extend({
-	model: function(params) {
-		return $.getJSON(services.findBy('name', 'Soundcloud')
-				.getUrl('/playlists/' + params.playlist_id + '.json'))
-				.then(function(data) {
-			return data;
-		});
-	}
-});
-
-var the_content = {playState: 0};
-
-
