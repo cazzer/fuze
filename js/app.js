@@ -13,7 +13,8 @@ var services =  [
 			var append = path.indexOf("?") !== -1 ? "&" : "?";
 			return "https://api.soundcloud.com" 
 					+ path + append + "oauth_token=" + SC.accessToken() + "&format=json";
-		}
+		},
+		widget: null
 	},
 	{
 		name: "Youtube",
@@ -37,9 +38,58 @@ if (window.location.host == "localhost") {
 }
 if ($.cookie('soundcloud')) SC.accessToken($.cookie('soundcloud'));
 
+function initSoundcloud() {
+	services[0].widget = SC.Widget('soundcloudPlayer');
+	services[0].widget.bind(SC.Widget.Events.FINISH, function() {
+		var i = queue.get('queue').indexOf(play.get('content'));
+		if (queue.get('queue').length > i + 1) {
+			play.set('content', queue.get('queue')[i + 1]);
+			playSoundcloud(play.get('content').uri);
+			//TODO this code gets repeated later, bad
+			jQuery('.queue').find('li.active-content').removeClass('active-content');
+			jQuery(jQuery('.queue').find('li')[i + 1]).addClass('active-content');
+		}
+	});
+}
+
+function playSoundcloud(uri) {
+	if (!services[0].widget) initSoundcloud();
+	services[0].widget.load(uri, {
+			auto_play: true,
+			show_artwork: false,
+			show_comments: false
+		});
+}
+
 var search,
 	queue,
 	play;
+	
+play = new Ractive({
+	el: "playContainer",
+	template: "#play",
+	data: {
+		content: null
+	}
+});
+
+queue = new Ractive({
+	el: "queueContainer",
+	template: "#queue",
+	data: {
+		queue: [],
+		active: null
+	}
+});
+
+queue.on('play', function(e) {
+	var content = this.get('queue')[e.node.getAttribute('data-index')];
+	jQuery('.queue').find('li.active-content').removeClass('active-content');
+	jQuery(e.node).addClass('active-content');
+	play.set('content', content);
+	console.log(content.uri);
+	playSoundcloud(content.uri);
+});
 
 search = new Ractive({
 	el: "searchContainer",
@@ -57,19 +107,16 @@ search.on('search', function(e) {
 	$.getJSON(services[0]
 			.getUrl('/tracks' + queryString)).then(function(data) {
 				ctrl.set('results', data);
+				openView('queueContainer');
 			});
 });
 
 search.on('addToQueue', function(e) {
 	var content = this.get('results')[e.node.getAttribute('data-index')];
-	console.log(content);
 	queue.get('queue').push(content);
+	openView('playContainer');
 });
 
-queue = new Ractive({
-	el: "queueContainer",
-	template: "#queue",
-	data: {
-		queue: []
-	}
-});
+function openView(id) {
+	jQuery("#" + id).removeClass('hidden');
+}

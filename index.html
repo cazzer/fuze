@@ -5,22 +5,34 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Fuze</title>
 	<link rel="stylesheet" href="css/normalize.css">
-	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 	<div class="container-fluid">
 		<div class="row-fluid">
-			<div class="col-md-3">
-				play area
+			<div id="playContainer" class="col-md-3 hidden">
 			</div>
-			<div id="queueContainer" class="col-md-3">
+			<div id="queueContainer" class="col-md-3 hidden">
 			</div>
 			<div id="searchContainer" class="col-md-6">
 			</div>
 		</div>
 	</div>
+	<script id="play" type="text/ractive">
+		{{#content}}
+		<img src="{{artwork_url}}" alt="content image">
+		<h4>{{title}}</h4>
+		<iframe id="soundcloudPlayer" 
+				src="https://w.soundcloud.com/player/?url=" 
+				width="100%" scrolling="no" frameborder="no"></iframe>
+		{{/content}}
+		{{^content}}
+		select a song from your queue
+		{{/content}}
+	</script>
 	<script id="queue" type="text/ractive">
+		<!--
 		<div class="navbar navbar-inverse">
 			<div class="container">
 				<nav role="navigation">
@@ -31,9 +43,12 @@
 				</nav>
 			</div>
 		</div>
+		-->
 	    <ul class="queue list-group">
-	    	{{#queue}}
-	    	<li class="list-group-item">
+	    	{{#queue:i}}
+	    	<li on-click="play"
+	    			class="list-group-item {{active == i ? 'background-primary' : ''}}"
+	    			data-index="{{i}}">
     			<div class="col-md-3">
 		    		<img src="{{artwork_url}}" alt="content image" class="img-thumbnail">	    				
     			</div>
@@ -41,7 +56,10 @@
 	    			<h4>{{title}}</h4>
 	    		</div>
 	    	</li>
-			{{/queue}}    
+			{{/queue}}
+			{{^queue}}
+			add some songs from your search results
+			{{/queue}}
 		</ul>
 	</script>
 	<script id="search" type="text/ractive">
@@ -70,17 +88,17 @@
 	    		</div>
 	    	</li>
 			{{/results}}
-			<li class="list-group-item col-md-12">
-				<h4>Load More</h4>
-			</li>     
 		</ul>
+		{{^results}}
+		search for something
+		{{/results}}
 	</script>
 	<script src="js/libs/jquery-1.10.2.js"></script>
 	<script src="js/libs/jquery.cookie.js"></script>
 	<script src="js/libs/Ractive.js"></script>
-	<script src="js/libs/bootstrap.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 	<script src="//connect.soundcloud.com/sdk.js"></script>
 	<script src="//w.soundcloud.com/player/api.js"></script>
 	<script src="js/app.js"></script>
-0</body>
+</body>
 </html>
