@@ -119,7 +119,18 @@ var api =  {
 };
 
 jQuery(function($) {
-	api.soundcloud.initialize();	
+	if (bootstrapState() == 'xs') {
+		$("#playContainer").addClass('hidden');
+		$("#queueContainer").addClass('hidden');
+	}
+	api.soundcloud.initialize();
+	
+	$(".mobile-nav-btn").click(function() {
+		$(this).siblings().removeClass('active');
+		$(this).addClass('active');
+		$(".site-section").addClass('hidden');
+		$($(this).data("target")).removeClass('hidden');
+	});
 });
 
 var search,
@@ -251,6 +262,11 @@ services.on('connect', function(e) {
 });
 
 /* displayl logic - later
+ * You should consider the following: Give a screen size a max-active tabs, but allow all screen
+ * sizes to view as little as one at a time. When aa view is hidden, turn it into a togglable tab
+ * at the top of the page...or something like that
+ */
+/*
 var sections = {
 	play: 0,
 	queue: 0,
@@ -289,6 +305,19 @@ function openView(id) {
 }
 */
 
-function youtubeReady() {
-	alert('youtube ready');
+function bootstrapState() {
+    var envs = ['xs', 'sm', 'md', 'lg'];
+
+    $el = $('<div>');
+    $el.appendTo($('body'));
+
+    for (var i = envs.length - 1; i >= 0; i--) {
+        var env = envs[i];
+
+        $el.addClass('hidden-'+env);
+        if ($el.is(':hidden')) {
+            $el.remove();
+            return env
+        }
+    };
 }

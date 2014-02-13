@@ -2,6 +2,10 @@
 	margin-right: 0px;
 }
 
+.navbar-fixed-bottom {
+	min-height: 0px;
+}
+
 .site-container {
 	padding: 0;
 }
@@ -38,6 +42,10 @@ b.status {
 	border: none;
 	color: white;
 	text-shadow: 0 0 3px #FFFFFF;
+}
+
+.btn-amazing.active {
+	color: blue;
 }
 
 .btn-queue-remove {
