@@ -9,89 +9,141 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<div class="container-fluid">
+	<div class="container-fluid site-container">
 		<div class="row-fluid">
-			<div id="playContainer" class="col-md-3 hidden">
-			</div>
-			<div id="queueContainer" class="col-md-3 hidden">
-			</div>
-			<div id="searchContainer" class="col-md-6">
-			</div>
+			<section id="playContainer" class="col-md-3 site-section">
+			</section>
+			<section id="queueContainer" class="col-md-3 site-section">
+			</section>
+			<section id="searchContainer" class="col-md-6 site-section">
+			</section>
 		</div>
 	</div>
 	<script id="play" type="text/ractive">
 		{{#content}}
-		<img src="{{artwork_url}}" alt="content image">
+		<img src="{{image}}" alt="content image">
 		<h4>{{title}}</h4>
 		<iframe id="soundcloudPlayer" 
 				src="https://w.soundcloud.com/player/?url=" 
-				width="100%" scrolling="no" frameborder="no"></iframe>
+				width="100%" scrolling="no" frameborder="no" class="hidden"></iframe>
+		<div id="youtubePlayer" class="hidden"></div>
 		{{/content}}
 		{{^content}}
-		select a song from your queue
+		<p>You are not playing any content, try selecting a song from your queue.</p>
 		{{/content}}
 	</script>
 	<script id="queue" type="text/ractive">
-		<!--
 		<div class="navbar navbar-inverse">
-			<div class="container">
+			<div class="navbar-inner">
 				<nav role="navigation">
-					<ul class="nav navbar-nav">
-						<li>queue</li>
-						<li>playlists</li>
-					</ul>
+					<form on-submit="save" class="navbar-form navbar-right">
+						<div class="form-group">
+							<input value="{{queueName}}" class="form-control" placeholder="queue name...">
+						</div>
+						<button type="submit" class="btn btn-amazing">
+							<span class="glyphicon glyphicon-floppy-save"></span>
+						</button>
+						<button type="button" class="btn btn-amazing pull-right" on-click="clear">
+							<span class="glyphicon glyphicon-trash"></span>
+						</button>	
+					</form>
 				</nav>
 			</div>
 		</div>
-		-->
-	    <ul class="queue list-group">
-	    	{{#queue:i}}
-	    	<li on-click="play"
-	    			class="list-group-item {{active == i ? 'background-primary' : ''}}"
-	    			data-index="{{i}}">
-    			<div class="col-md-3">
-		    		<img src="{{artwork_url}}" alt="content image" class="img-thumbnail">	    				
-    			</div>
-	    		<div class="col-md-9">
-	    			<h4>{{title}}</h4>
-	    		</div>
-	    	</li>
+		<ul class="queue list-group">
+			{{#queue:i}}
+			<li on-click="play"
+					class="list-group-item content {{active == i ? 'background-primary' : ''}}"
+					data-index="{{i}}">
+				{{> contentTile}}
+				<button on-click="remove" type="button" class="btn-queue-remove">
+					<span class="glyphicon glyphicon-remove"></span>
+				</button>
+			</li>
 			{{/queue}}
 			{{^queue}}
-			add some songs from your search results
+			<p>Your queue is empty, try adding some songs from your search results.</p>
 			{{/queue}}
 		</ul>
 	</script>
 	<script id="search" type="text/ractive">
 		<div class="navbar navbar-inverse">
-			<div class="container">
+			<div class="navbar-inner">
 				<nav role="navigation">
-					<form on-submit="search" class="navbar-form navbar-left">
+					<form on-submit="search" class="navbar-form navbar-right">
 						<div class="form-group">
 							<input value="{{query}}" class="form-control" placeholder="search...">
 						</div>
-						<button type="submit" class="btn btn-default">
+						<button type="submit" class="btn btn-amazing">
 							<span class="glyphicon glyphicon-search"></span>
+						</button>
+						<button type="button" class="btn btn-amazing" data-toggle="modal" data-target="#servicesContainer">
+							<span class="glyphicon glyphicon-cog"></span>
 						</button>
 					</form>
 				</nav>
 			</div>
 		</div> 
-	    <ul class="results list-group">
-	    	{{#results:i}}
-	    	<li class="list-group-item col-md-6" on-click="addToQueue" data-index="{{i}}">
-    			<div class="col-md-3">
-		    		<img src="{{artwork_url}}" alt="content image" class="img-thumbnail">	    				
-    			</div>
-	    		<div class="col-md-9">
-	    			<h4>{{title}}</h4>
-	    		</div>
-	    	</li>
+		<ul class="results list-group">
+			{{#results:i}}
+			<li class="list-group-item col-md-6 content" on-click="addToQueue" data-index="{{i}}">
+				{{> contentTile}}
+			</li>
 			{{/results}}
 		</ul>
 		{{^results}}
-		search for something
+		<p>No results, try searching for something else.</p>
 		{{/results}}
+		<!-- Modal -->
+		<div class="modal fade" id="servicesContainer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		</div>
+	</script>
+	<script id="services" type="text/ractive">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Services</h4>
+				</div>
+				<div class="modal-body">
+					<ul class="list-group">
+						{{#services}}
+						<li id="{{slug}}-service" class="list-group-item">
+							<button data-service="{{slug}}" type="button" class="btn btn-default" on-click="connect">{{name}}</button>
+							<span id="{{slug}}-status" class="pull-right status"></span>
+						</li>
+						{{/services}}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</script>
+	<script type="text/html" id="contentTile">
+		<div class="bignail col-md-3">
+			<img src="{{image}}" alt="content image">					
+		</div>
+		<div class="col-md-9">
+			<h5 class="title">{{title}}</h5>
+			{{#description}}
+			<p class="description">{{description}}</p>
+			{{/description}}
+			<table class="table table-condensed" style="font-size: .6em;">
+				<tbody>
+					{{#likes}}
+					<tr>
+						<th>likes</th>
+						<td>{{likes}}</td>
+					</tr>
+					{{/likes}}
+					{{#plays}}
+					<tr>
+						<th>plays</th>
+						<td>{{plays}}</td>
+					</tr>
+					{{/plays}}
+				</tbody>
+			</table>
+		</div>
 	</script>
 	<script src="js/libs/jquery-1.10.2.js"></script>
 	<script src="js/libs/jquery.cookie.js"></script>
@@ -99,6 +151,7 @@
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 	<script src="//connect.soundcloud.com/sdk.js"></script>
 	<script src="//w.soundcloud.com/player/api.js"></script>
+	<script src="//www.youtube.com/iframe_api"></script>
 	<script src="js/app.js"></script>
 </body>
 </html>

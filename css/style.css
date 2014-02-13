@@ -1,3 +1,15 @@
+.navbar-form.navbar-right:last-child {
+	margin-right: 0px;
+}
+
+.site-container {
+	padding: 0;
+}
+
+.site-section {
+	padding: 0;
+}
+
 .active {
 	font-weight: bold;
 }
@@ -6,11 +18,6 @@ b.status {
 	width: 8px;
 	height: 8px;
 	border-radius: 4px;
-}
-
-.list-group li {
-	height: 84px;
-	overflow: hidden;
 }
 
 .active-content {
@@ -26,3 +33,77 @@ b.status {
 	height:100%;
 }
 
+.btn-amazing {
+	background-color: transparent;
+	border: none;
+	color: white;
+	text-shadow: 0 0 3px #FFFFFF;
+}
+
+.btn-queue-remove {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	background-color: transparent;
+	border: none;
+	text-shadow: 0 0 3px #FFFFFF;
+}
+
+.btn-queue-remove:hover {
+	text-shadow: 0 0 3px black;
+}
+
+.content {
+	padding: 0;
+	height: 84px;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.content .description {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	font-size: .75em;	
+}
+
+.content .title {
+	font-weight: bold;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.bignail {
+	padding-left: none;
+}
+
+.bignail img {
+	left: 0;
+	top: 0;
+	position: absolute;
+	width: 100%;
+}
+
+
+.list-group-item {
+	padding: none;
+}
+
+.status {
+	width: .5em;
+	height: .5em;
+	border-radius: .25em;
+	margin: 1em;
+	background-color: orange;
+	box-shadow: 0 0 .6em orange;
+}
+
+.status.green {
+	background-color: green;
+	box-shadow: 0 0 .6em green;	
+}
+
+.status.red {
+	background-color: red;
+	box-shadow: 0 0 .6em red;	
+}
