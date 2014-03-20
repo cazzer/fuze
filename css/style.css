@@ -115,3 +115,18 @@ b.status {
 	background-color: red;
 	box-shadow: 0 0 .6em red;	
 }
+
+.nav-text-input {
+	border: 1px transparent solid;
+	background: transparent;
+	color: white;
+	text-shadow: 0 0 .5px white;
+	border-radius: 4px;
+}
+.nav-text-input:hover {
+	border-bottom: 1px white solid;
+	box-shadow: 0 0 2px white;
+}
+.nav-text-input:focus {
+	border-bottom: 1px white solid;
+}

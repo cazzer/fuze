@@ -34,8 +34,6 @@
 	</div>
 	<script id="play" type="text/ractive">
 		{{#content}}
-		<img src="{{image}}" alt="content image">
-		<h4>{{title}}</h4>
 		<iframe id="soundcloudPlayer" 
 				src="https://w.soundcloud.com/player/?url=" 
 				width="100%" scrolling="no" frameborder="no" class="hidden"></iframe>
@@ -51,12 +49,12 @@
 				<nav role="navigation">
 					<form on-submit="save" class="navbar-form navbar-right">
 						<div class="form-group">
-							<input value="{{queueName}}" class="form-control" placeholder="queue name...">
+							<input value="{{queueName}}" class="nav-text-input" placeholder="Name your queue...">
 						</div>
 						<button type="submit" class="btn btn-amazing">
 							<span class="glyphicon glyphicon-floppy-save"></span>
 						</button>
-						<button type="button" class="btn btn-amazing pull-right" on-click="clear">
+						<button type="button" class="btn btn-amazing" on-click="clear">
 							<span class="glyphicon glyphicon-trash"></span>
 						</button>	
 					</form>
@@ -85,7 +83,7 @@
 				<nav role="navigation">
 					<form on-submit="search" class="navbar-form navbar-right">
 						<div class="form-group">
-							<input value="{{query}}" class="form-control" placeholder="search...">
+							<input value="{{query}}" class="nav-text-input" placeholder="search...">
 						</div>
 						<button type="submit" class="btn btn-amazing">
 							<span class="glyphicon glyphicon-search"></span>

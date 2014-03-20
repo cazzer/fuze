@@ -167,8 +167,9 @@ queue.on('remove', function(e) {
 	this.get('queue').splice(e.node.parentNode.getAttribute('data-index'), 1);
 });
 
-queue.on('save', function() {
-	alert('I can do that yet.');
+queue.on('save', function(e) {
+	e.original.preventDefault();
+	alert("I can't do that yet.");
 });
 
 queue.on('clear', function(e) {
