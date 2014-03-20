@@ -52,9 +52,7 @@ var api =  {
 		play: function(content) {
 			if (!this.widget) this.initializeWidget();
 			this.widget.load(content.url, {
-					auto_play: true,
-					show_artwork: false,
-					show_comments: false
+					auto_play: true
 				});	
 		},
 		stop: function() {
@@ -104,7 +102,7 @@ var api =  {
 		},
 		initializeWidget: function(content) {
 			this.widget = new YT.Player('youtubePlayer', {
-				height: '320',
+				height: '100%',
 				width: '100%',
 				videoId: content.id,
 				events: {
@@ -322,3 +320,16 @@ function bootstrapState() {
         }
     };
 }
+
+$(".content-pane-handle").click(function() {
+	//TODO don't do this when the user is interacting with a form
+	var $pane = $(this).parent().parent();
+	
+	if ($pane.hasClass("middle-content")) return;
+	
+	var currentClass = $pane.hasClass('left-content') ? 'left-content' : 'right-content';
+	var middle = $(".middle-content").removeClass('middle-content');
+	middle.addClass(currentClass);
+	$pane.removeClass(currentClass);
+	$pane.addClass('middle-content');
+});

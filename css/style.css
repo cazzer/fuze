@@ -2,6 +2,17 @@
 	margin-right: 0px;
 }
 
+body {
+	overflow: hidden;
+	background-color: #999
+}
+
+.content-pane-handle {
+	border-radius: 0;
+	border: none;
+	margin-bottom: 0;
+}
+
 .navbar-fixed-bottom {
 	min-height: 0px;
 }
@@ -129,4 +140,73 @@ b.status {
 }
 .nav-text-input:focus {
 	border-bottom: 1px white solid;
+}
+
+
+/***
+ * Panel Effect
+ * ***/
+.left-content {
+	left: -16.66666667%;
+	height: 100%;
+	width: 25%;
+	z-index: 2;
+	
+	box-shadow: 2px 0px 8px #333;
+}
+
+.left-content-focus,
+.left-content:hover {
+	left: 0;
+}
+
+.middle-content {
+	left: 8.33333333%;
+	height: 100%;
+	width: 83.33333333%;
+	
+	z-index: 1;
+}
+
+.right-content {
+
+	right: -16.66666667%;
+	height: 100%;
+	width: 25%;
+	z-index: 2;
+	
+	box-shadow: -2px 0px 8px #555;
+}
+
+.right-content-focus,
+.right-content:hover {
+	right: 0;
+}
+
+.content-pane-header {
+	position: relative;
+	z-index: 2;
+}
+
+.content-pane {
+	position: absolute;
+	top: 0px;
+	overflow: hidden;
+	background-color: #999;
+	
+	-webkit-transition: left .1s, right .1s, background-color 2s;
+    transition: left .1s, right .1s;
+}
+
+.content-pane-body {
+	position: relative;
+	padding-top: 50px;
+	top: -50px;
+	height: 100%;
+	z-index: 1;
+}
+
+.content-pane-body-inner {
+	height: 100%;
+	overflow: auto;
 }

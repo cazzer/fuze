@@ -24,89 +24,107 @@
 			</nav>
 		</div>
 		<div class="row-fluid">
-			<section id="playContainer" class="col-md-3 site-section">
-			</section>
-			<section id="queueContainer" class="col-md-3 site-section">
-			</section>
-			<section id="searchContainer" class="col-md-6 site-section">
-			</section>
+			<section id="playContainer" class="left-content content-pane site-section"></section>
+			<section id="searchContainer" class="middle-content content-pane site-section"></section>
+			<section id="queueContainer" class="right-content content-pane site-section"></section>
 		</div>
 	</div>
+	<div class="modal fade" id="servicesContainer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	</div>
 	<script id="play" type="text/ractive">
-		{{#content}}
-		<iframe id="soundcloudPlayer" 
-				src="https://w.soundcloud.com/player/?url=" 
-				width="100%" scrolling="no" frameborder="no" class="hidden"></iframe>
-		<div id="youtubePlayer" class="hidden"></div>
-		{{/content}}
-		{{^content}}
-		<p>You are not playing any content, try selecting a song from your queue.</p>
-		{{/content}}
-	</script>
-	<script id="queue" type="text/ractive">
-		<div class="navbar navbar-inverse">
-			<div class="navbar-inner">
-				<nav role="navigation">
-					<form on-submit="save" class="navbar-form navbar-right">
-						<div class="form-group">
-							<input value="{{queueName}}" class="nav-text-input" placeholder="Name your queue...">
-						</div>
-						<button type="submit" class="btn btn-amazing">
-							<span class="glyphicon glyphicon-floppy-save"></span>
-						</button>
-						<button type="button" class="btn btn-amazing" on-click="clear">
-							<span class="glyphicon glyphicon-trash"></span>
-						</button>	
-					</form>
-				</nav>
+		<div class="content-pane-header">
+			<div class="navbar navbar-inverse content-pane-handle">
+				<div class="navbar-inner">
+				</div>
 			</div>
 		</div>
-		<ul class="queue list-group">
-			{{#queue:i}}
-			<li on-click="play"
-					class="list-group-item content {{active == i ? 'background-primary' : ''}}"
-					data-index="{{i}}">
-				{{> contentTile}}
-				<button on-click="remove" type="button" class="btn-queue-remove">
-					<span class="glyphicon glyphicon-remove"></span>
-				</button>
-			</li>
-			{{/queue}}
-			{{^queue}}
-			<p>Your queue is empty, try adding some songs from your search results.</p>
-			{{/queue}}
-		</ul>
+		<div class="content-pane-body">
+			<div class="content-pane-body-inner">
+			{{#content}}
+			<iframe id="soundcloudPlayer" 
+					src="https://w.soundcloud.com/player/?url=" 
+					width="100%" height="100%" scrolling="no" frameborder="no" class="hidden"></iframe>
+			<div id="youtubePlayer" class="hidden"></div>
+			{{/content}}
+			{{^content}}
+			<p>You are not playing any content, try selecting a song from your queue.</p>
+			{{/content}}
+			</div>
+		</div>
+	</script>
+	<script id="queue" type="text/ractive">
+		<div class="content-pane-header">
+			<div class="navbar navbar-inverse content-pane-handle">
+				<div class="navbar-inner">
+					<nav role="navigation">
+						<form on-submit="save" class="navbar-form navbar-right">
+							<div class="form-group">
+								<input value="{{queueName}}" class="nav-text-input" placeholder="Name your queue...">
+							</div>
+							<button type="submit" class="btn btn-amazing">
+								<span class="glyphicon glyphicon-floppy-save"></span>
+							</button>
+							<button type="button" class="btn btn-amazing" on-click="clear">
+								<span class="glyphicon glyphicon-trash"></span>
+							</button>	
+						</form>
+					</nav>
+				</div>	
+			</div>
+		</div>
+		<div class="content-pane-body">
+			<div class="content-pane-body-inner">
+				<ul class="queue list-group">
+					{{#queue:i}}
+					<li on-click="play"
+							class="list-group-item col-md-6 content {{active == i ? 'background-primary' : ''}}"
+							data-index="{{i}}">
+						{{> contentTile}}
+						<button on-click="remove" type="button" class="btn-queue-remove">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+					</li>
+					{{/queue}}
+					{{^queue}}
+					<p>Your queue is empty, try adding some songs from your search results.</p>
+					{{/queue}}
+				</ul>	
+			</div>
+		</div>
 	</script>
 	<script id="search" type="text/ractive">
-		<div class="navbar navbar-inverse">
-			<div class="navbar-inner">
-				<nav role="navigation">
-					<form on-submit="search" class="navbar-form navbar-right">
-						<div class="form-group">
-							<input value="{{query}}" class="nav-text-input" placeholder="search...">
-						</div>
-						<button type="submit" class="btn btn-amazing">
-							<span class="glyphicon glyphicon-search"></span>
-						</button>
-						<button type="button" class="btn btn-amazing" data-toggle="modal" data-target="#servicesContainer">
-							<span class="glyphicon glyphicon-cog"></span>
-						</button>
-					</form>
-				</nav>
+		<div class="content-pane-header">
+			<div class="navbar navbar-inverse content-pane-handle">
+				<div class="navbar-inner">
+					<nav role="navigation">
+						<form on-submit="search" class="navbar-form navbar-right">
+							<div class="form-group">
+								<input value="{{query}}" class="nav-text-input" placeholder="search...">
+							</div>
+							<button type="submit" class="btn btn-amazing">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+							<button type="button" class="btn btn-amazing" data-toggle="modal" data-target="#servicesContainer">
+								<span class="glyphicon glyphicon-cog"></span>
+							</button>
+						</form>
+					</nav>
+				</div>
+			</div> 
+		</div>
+		<div class="content-pane-body">
+			<div class="content-pane-body-inner">
+				<ul class="results list-group">
+					{{#results:i}}
+					<li class="list-group-item col-md-6 content" on-click="addToQueue" data-index="{{i}}">
+						{{> contentTile}}
+					</li>
+					{{/results}}
+				</ul>
+				{{^results}}
+				<p>No results, try searching for something else.</p>
+				{{/results}}
 			</div>
-		</div> 
-		<ul class="results list-group">
-			{{#results:i}}
-			<li class="list-group-item col-md-6 content" on-click="addToQueue" data-index="{{i}}">
-				{{> contentTile}}
-			</li>
-			{{/results}}
-		</ul>
-		{{^results}}
-		<p>No results, try searching for something else.</p>
-		{{/results}}
-		<!-- Modal -->
-		<div class="modal fade" id="servicesContainer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		</div>
 	</script>
 	<script id="services" type="text/ractive">
