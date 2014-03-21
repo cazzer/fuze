@@ -1,13 +1,43 @@
+@media screen and (min-width: 480px) {
+	.middle-panel .content {
+		width: 100%;
+		float: left;
+	}	
+}
+@media screen and (min-width: 780px) {
+	.middle-panel .content {
+		width: 50%;
+		float: left;
+	}	
+}
+@media screen and (min-width: 980px) {
+	.middle-panel .content {
+		width: 33%;
+		float: left;
+	}
+	.middle-panel .content:nth-child(3n) {
+		width: 34%;
+	}
+}
+.side-panel .content {
+	width: 100%;
+	float: left;
+}
+.content {
+	height: 120px;
+}
+
+
 .navbar-form.navbar-right:last-child {
 	margin-right: 0px;
 }
 
 body {
 	overflow: hidden;
-	background-color: #999
+	background-color: #999;
 }
 
-.content-pane-handle {
+.content-panel-handle {
 	border-radius: 0;
 	border: none;
 	margin-bottom: 0;
@@ -46,17 +76,6 @@ b.status {
 	background-size: 30px 30px;
 	width:100%;
 	height:100%;
-}
-
-.btn-amazing {
-	background-color: transparent;
-	border: none;
-	color: white;
-	text-shadow: 0 0 3px #FFFFFF;
-}
-
-.btn-amazing.active {
-	color: blue;
 }
 
 .btn-queue-remove {
@@ -127,86 +146,155 @@ b.status {
 	box-shadow: 0 0 .6em red;	
 }
 
-.nav-text-input {
-	border: 1px transparent solid;
-	background: transparent;
-	color: white;
-	text-shadow: 0 0 .5px white;
-	border-radius: 4px;
+#playContainer .content-panel-body-inner {
+	overflow: hidden;
 }
-.nav-text-input:hover {
-	border-bottom: 1px white solid;
-	box-shadow: 0 0 2px white;
-}
-.nav-text-input:focus {
-	border-bottom: 1px white solid;
-}
-
 
 /***
  * Panel Effect
  * ***/
-.left-content {
-	left: -16.66666667%;
-	height: 100%;
-	width: 25%;
-	z-index: 2;
-	
-	box-shadow: 2px 0px 8px #333;
-}
-
-.left-content-focus,
-.left-content:hover {
-	left: 0;
-}
-
-.middle-content {
-	left: 8.33333333%;
-	height: 100%;
-	width: 83.33333333%;
-	
-	z-index: 1;
-}
-
-.right-content {
-
-	right: -16.66666667%;
-	height: 100%;
-	width: 25%;
-	z-index: 2;
-	
-	box-shadow: -2px 0px 8px #555;
-}
-
-.right-content-focus,
-.right-content:hover {
-	right: 0;
-}
-
-.content-pane-header {
-	position: relative;
-	z-index: 2;
-}
-
-.content-pane {
+/* Content panel general */
+.content-panel {
 	position: absolute;
 	top: 0px;
 	overflow: hidden;
-	background-color: #999;
-	
-	-webkit-transition: left .1s, right .1s, background-color 2s;
-    transition: left .1s, right .1s;
+	/* thanks @doot0 */
+	background: url("../images/squared_metal.png") repeat;
+	-webkit-transition: left .1s, right .1s, padding .1s;
+    transition: left .1s, right .1s, padding .1s;
 }
-
-.content-pane-body {
-	position: relative;
+.content-panel-header {
+	background-color: #222222;
+	min-height: 50px;
+	position: absolute;
+	width: 100%;
+	z-index: 2;
+}
+.content-panel-body {
 	padding-top: 50px;
-	top: -50px;
 	height: 100%;
 	z-index: 1;
 }
-
-.content-pane-body-inner {
+.content-panel-body-inner {
 	height: 100%;
 	overflow: auto;
+}
+/* Panel Zones */
+.left-panel {
+	left: -288px;
+	height: 100%;
+	width: 320px;
+	z-index: 2;
+	box-shadow: 2px 0px 8px #000;
+}
+.left-panel-focus,
+.left-panel:hover {
+	left: 0;
+}
+.right-panel {
+	right: -288px;
+	height: 100%;
+	width: 320px;
+	z-index: 2;
+	box-shadow: -2px 0px 8px #000;
+}
+.right-panel-focus,
+.right-panel:hover {
+	right: 0;
+	left: auto;
+}
+.middle-panel {
+	height: 100%;
+	width: 100%;
+	padding: 0 32px;
+	left: 0;
+	
+	z-index: 1;
+}
+/* Content Header/Forms */
+.right-handle {
+	right: 0;
+}
+.right-panel .right-handle {
+	display: none;
+}
+.left-panel .left-handle {
+	display: none;
+}
+.middle-panel .content-panel-handle {
+	display: none;
+}
+.content-panel-header form {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	padding: 0 64px;
+	z-index: 1;
+}
+.left-panel .content-panel-header form {
+	padding-left: 0;
+}
+.right-panel .content-panel-header form {
+	padding-right: 0;
+}
+.handle-wrap {
+	position: absolute;
+	height: 100%;
+	padding: 0;
+	z-index: 2;
+}
+.content-panel-handle {
+	width: 64px !important;
+}
+.middle-panel .content-panel-header form {
+	width: auto;
+	left: 50%;
+	transform: translateX(-50%);
+}
+.content-panel-header form input[type="text"] {
+	font-size: 19px
+}
+.btn-amazing {
+	background-color: transparent;
+	border: none;
+	color: white;
+	text-shadow: 0 0 3px #FFFFFF;
+	
+	float: left;
+	position: relative;
+	text-align: center;
+	height: 100%;
+	width: 32px;
+	padding: 0;
+}
+.txt-amazing {
+	height: 100%;
+	font-size: 1.2em;
+	width: 192px;
+	float: left;
+}
+.txt-amazing input {
+	background: transparent;
+	color: white;
+	border-bottom: 1px white solid;
+	border-radius: 4px;
+	
+	width: 100%;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+.txt-amazing input:hover {
+	box-shadow: 0 0 2px white;
+}
+.btn-amazing * {
+	text-align: center;
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+}
+.btn-amazing.active {
+	color: blue;
 }

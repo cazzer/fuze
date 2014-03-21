@@ -117,18 +117,7 @@ var api =  {
 };
 
 jQuery(function($) {
-	if (bootstrapState() == 'xs') {
-		$("#playContainer").addClass('hidden');
-		$("#queueContainer").addClass('hidden');
-	}
 	api.soundcloud.initialize();
-	
-	$(".mobile-nav-btn").click(function() {
-		$(this).siblings().removeClass('active');
-		$(this).addClass('active');
-		$(".site-section").addClass('hidden');
-		$($(this).data("target")).removeClass('hidden');
-	});
 });
 
 var search,
@@ -321,15 +310,12 @@ function bootstrapState() {
     };
 }
 
-$(".content-pane-handle").click(function() {
-	//TODO don't do this when the user is interacting with a form
-	var $pane = $(this).parent().parent();
+$(".content-panel-handle").click(function() {
+	var $panel = $(this).closest('.site-section');
 	
-	if ($pane.hasClass("middle-content")) return;
-	
-	var currentClass = $pane.hasClass('left-content') ? 'left-content' : 'right-content';
-	var middle = $(".middle-content").removeClass('middle-content');
+	var currentClass = $panel.hasClass('left-panel') ? 'left-panel' : 'right-panel';
+	var middle = $(".middle-panel").removeClass('middle-panel');
 	middle.addClass(currentClass);
-	$pane.removeClass(currentClass);
-	$pane.addClass('middle-content');
+	$panel.removeClass(currentClass);
+	$panel.addClass('middle-panel');
 });
