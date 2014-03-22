@@ -18,18 +18,24 @@
 	</div>
 	<div class="modal fade" id="servicesContainer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	</div>
+	<script id="leftHandle" type="text/ractive">
+		<div class="handle-wrap left-handle">
+			<button title="Make it big!" class="content-panel-handle btn-amazing">
+				<span class="glyphicon glyphicon-chevron-left"></span>
+			</button>	
+		</div>	
+	</script>
+	<script id="rightHandle" type="text/ractive">
+		<div class="handle-wrap right-handle">
+			<button title="Make it big!" class="content-panel-handle btn-amazing">
+				<span class="glyphicon glyphicon-chevron-right"></span>
+			</button>	
+		</div>	
+	</script>
 	<script id="play" type="text/ractive">
 		<div class="content-panel-header">
-			<div class="handle-wrap left-handle">
-				<button title="swap with the panel to the left" class="content-panel-handle btn-amazing">
-					<span class="glyphicon glyphicon-chevron-left"></span>
-				</button>	
-			</div>
-			<div class="handle-wrap right-handle">
-				<button title="swap with the panel to the right" class="content-panel-handle btn-amazing">
-					<span class="glyphicon glyphicon-chevron-right"></span>
-				</button>	
-			</div>
+			{{> leftHandle}}
+			{{> rightHandle}}
 		</div>
 		<div class="content-panel-body">
 			<div class="content-panel-body-inner">
@@ -47,11 +53,7 @@
 	</script>
 	<script id="queue" type="text/ractive">
 		<div class="content-panel-header">
-			<div class="handle-wrap left-handle">
-				<button title="swap with the panel to the left" class="content-panel-handle btn-amazing">
-					<span class="glyphicon glyphicon-chevron-left"></span>
-				</button>	
-			</div>
+			{{> leftHandle}}
 			<form name="queue-form" on-submit="save">
 				<div class="txt-amazing">
 					<input value="{{queueName}}" placeholder="Name your queue...">
@@ -63,11 +65,7 @@
 					<span class="glyphicon glyphicon-trash"></span>
 				</button>	
 			</form>
-			<div class="handle-wrap right-handle">
-				<button title="swap with the panel to the right" class="content-panel-handle btn-amazing">
-					<span class="glyphicon glyphicon-chevron-right"></span>
-				</button>	
-			</div>
+			{{> rightHandle}}
 		</div>
 		<div class="content-panel-body">
 			<div class="content-panel-body-inner">
@@ -83,7 +81,7 @@
 					</li>
 					{{/queue}}
 					{{^queue}}
-					<p>Your queue is empty, try adding some songs from your search results.</p>
+					<span class="panel-message">Your queue is empty, try adding some songs from your search results.</span>
 					{{/queue}}
 				</ul>	
 			</div>
@@ -91,11 +89,7 @@
 	</script>
 	<script id="search" type="text/ractive">
 		<div class="content-panel-header">
-			<div class="handle-wrap left-handle">
-				<button title="swap with the panel to the left" class="content-panel-handle btn-amazing">
-					<span class="glyphicon glyphicon-chevron-left"></span>
-				</button>	
-			</div>
+			{{> leftHandle}}
 			<form name="search-form" on-submit="search">
 				<div class="txt-amazing">
 					<input value="{{query}}" class="nav-text-input" placeholder="search...">
@@ -105,13 +99,9 @@
 				</button>
 				<button type="button" class="btn-amazing" on-click="clear">
 					<span class="glyphicon glyphicon-cog"></span>
-				</button>	
-			<div class="handle-wrap right-handle">
-				<button title="swap with the panel to the right" class="content-panel-handle btn-amazing">
-					<span class="glyphicon glyphicon-chevron-right"></span>
-				</button>	
-			</div>
+				</button>
 			</form>
+			{{> rightHandle}}
 		</div>
 		<div class="content-panel-body">
 			<div class="content-panel-body-inner">

@@ -179,6 +179,10 @@ b.status {
 	height: 100%;
 	overflow: auto;
 }
+.panel-message {
+	margin: 20px 5px;
+	width: 100%;
+}
 /* Panel Zones */
 .left-panel {
 	left: -288px;
@@ -250,6 +254,7 @@ b.status {
 	width: auto;
 	left: 50%;
 	transform: translateX(-50%);
+	-webkit-transform: translateX(-50%);
 }
 .content-panel-header form input[type="text"] {
 	font-size: 19px
@@ -283,6 +288,7 @@ b.status {
 	position: relative;
 	top: 50%;
 	transform: translateY(-50%);
+	-webkit-transform: translateY(-50%);
 }
 .txt-amazing input:hover {
 	box-shadow: 0 0 2px white;
@@ -294,6 +300,7 @@ b.status {
 	top: 50%;
 	left: 0;
 	transform: translateY(-50%);
+	-webkit-transform: translateY(-50%);
 }
 .btn-amazing.active {
 	color: blue;
