@@ -20,14 +20,20 @@
 	</div>
 	<script id="leftHandle" type="text/ractive">
 		<div class="handle-wrap left-handle">
-			<button title="Make it big!" class="content-panel-handle btn-amazing">
+			<button title="Move to middle" class="content-panel-handle btn-amazing">
 				<span class="glyphicon glyphicon-chevron-left"></span>
+			</button>
+			<button title="Toggle pin" class="content-panel-pin btn-amazing">
+				<span class="glyphicon glyphicon-pushpin"></span>
 			</button>	
 		</div>	
 	</script>
 	<script id="rightHandle" type="text/ractive">
 		<div class="handle-wrap right-handle">
-			<button title="Make it big!" class="content-panel-handle btn-amazing">
+			<button title="Toggle pin" class="content-panel-pin btn-amazing">
+				<span class="glyphicon glyphicon-pushpin"></span>
+			</button>	
+			<button title="Move to middle" class="content-panel-handle btn-amazing">
 				<span class="glyphicon glyphicon-chevron-right"></span>
 			</button>	
 		</div>	
@@ -46,7 +52,7 @@
 			<div id="youtubePlayer" class="hidden"></div>
 			{{/content}}
 			{{^content}}
-			<p>You are not playing any content, try selecting a song from your queue.</p>
+			<p class="panel-message">You are not playing any content, try selecting a song from your queue.</p>
 			{{/content}}
 			</div>
 		</div>
@@ -69,6 +75,7 @@
 		</div>
 		<div class="content-panel-body">
 			<div class="content-panel-body-inner">
+				
 				<ul class="queue list-group">
 					{{#queue:i}}
 					<li on-click="play"
@@ -80,10 +87,10 @@
 						</button>
 					</li>
 					{{/queue}}
-					{{^queue}}
-					<span class="panel-message">Your queue is empty, try adding some songs from your search results.</span>
-					{{/queue}}
-				</ul>	
+				</ul>
+				{{^queue}}
+				<p class="panel-message">Your queue is empty, try adding some songs from your search results.</p>
+				{{/queue}}
 			</div>
 		</div>
 	</script>
@@ -113,7 +120,7 @@
 					{{/results}}
 				</ul>
 				{{^results}}
-				<p>No results, try searching for something else.</p>
+				<p class="panel-message">No results, try searching for something else.</p>
 				{{/results}}
 			</div>
 		</div>

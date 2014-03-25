@@ -75,11 +75,12 @@ var api =  {
 			$.getJSON(this.get_url("search?part=snippet&type=video&maxResults=10&q=" + q)).then(function(data) {
 				var normalized = [];
 				jQuery.each(data.items, function(index, obj) {
+					var image = obj.snippet.thumbnails['default'].url ? 
+								obj.snippet.thumbnails['default'].url : '';
 					normalized.push({
 						service: 'youtube',
 						title: obj.snippet.title,
-						image: obj.snippet.thumbnails.default.url ? 
-								obj.snippet.thumbnails.default.url : '',
+						image: image,
 						description: obj.snippet.description,
 						id: obj.id.videoId
 					});
@@ -293,29 +294,20 @@ function openView(id) {
 }
 */
 
-function bootstrapState() {
-    var envs = ['xs', 'sm', 'md', 'lg'];
-
-    $el = $('<div>');
-    $el.appendTo($('body'));
-
-    for (var i = envs.length - 1; i >= 0; i--) {
-        var env = envs[i];
-
-        $el.addClass('hidden-'+env);
-        if ($el.is(':hidden')) {
-            $el.remove();
-            return env
-        }
-    };
-}
-
 $(".content-panel-handle").click(function() {
-	var $panel = $(this).closest('.site-section');
-	
-	var currentClass = $panel.hasClass('left-panel') ? 'left-panel' : 'right-panel';
-	var middle = $(".middle-panel").removeClass('middle-panel');
+	var $panel = $(this).closest('.site-section'),
+		currentClass = $panel.hasClass('left-panel') ? 'left-panel' : 'right-panel',
+		middle = $(".middle-panel").removeClass('middle-panel');
+
 	middle.addClass(currentClass);
 	$panel.removeClass(currentClass);
 	$panel.addClass('middle-panel');
+});
+
+$(".content-panel-pin").click(function() {
+	var $panel = $(this).closest('.site-section'),
+		side = $panel.hasClass('left-panel') ? 'left' : 'right';
+	
+	$panel.toggleClass(side + '-panel-focus');
+	$(".middle-panel").toggleClass(side + '-focus');
 });

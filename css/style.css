@@ -166,7 +166,7 @@ b.status {
 .content-panel-header {
 	background-color: #222222;
 	min-height: 50px;
-	position: absolute;
+	position: relative;
 	width: 100%;
 	z-index: 2;
 }
@@ -180,8 +180,13 @@ b.status {
 	overflow: auto;
 }
 .panel-message {
-	margin: 20px 5px;
-	width: 100%;
+	margin: 20px 10%;
+	width: 80%;
+	text-align: center;
+}
+.middle-panel .panel-message {
+	margin: 20px 20%;
+	width: 60%;
 }
 /* Panel Zones */
 .left-panel {
@@ -215,6 +220,12 @@ b.status {
 	
 	z-index: 1;
 }
+.middle-panel.right-focus {
+	padding-right: 320px;
+}
+.middle-panel.left-focus {
+	padding-left: 320px;
+}
 /* Content Header/Forms */
 .right-handle {
 	right: 0;
@@ -225,7 +236,7 @@ b.status {
 .left-panel .left-handle {
 	display: none;
 }
-.middle-panel .content-panel-handle {
+.middle-panel .handle-wrap {
 	display: none;
 }
 .content-panel-header form {
@@ -246,9 +257,6 @@ b.status {
 	height: 100%;
 	padding: 0;
 	z-index: 2;
-}
-.content-panel-handle {
-	width: 64px !important;
 }
 .middle-panel .content-panel-header form {
 	width: auto;
@@ -271,6 +279,9 @@ b.status {
 	height: 100%;
 	width: 32px;
 	padding: 0;
+}
+.btn-amazing:hover {
+	text-shadow: 0 0 4px #0099FF;
 }
 .txt-amazing {
 	height: 100%;
