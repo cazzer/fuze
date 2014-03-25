@@ -10,114 +10,94 @@
 </head>
 <body>
 	<div class="container-fluid site-container">
-		<div class="row-fluid">
-			<section id="playContainer" class="left-panel content-panel site-section"></section>
-			<section id="searchContainer" class="middle-panel content-panel site-section"></section>
-			<section id="queueContainer" class="right-panel content-panel site-section"></section>
+			<div class="row-fluid">
+				<section id="playContainer" class="left-panel content-panel site-section">
+					<div class="content-panel-header">
+						<div class="handle-wrap left-handle">
+							<button title="Make it big!" class="content-panel-handle btn-amazing">
+								<span class="glyphicon glyphicon-chevron-left"></span>
+							</button>
+						</div>
+						<div class="handle-wrap right-handle">
+							<button title="Make it big!" class="content-panel-handle btn-amazing">
+								<span class="glyphicon glyphicon-chevron-right"></span>
+							</button>
+						</div>
+					</div>
+					<div class="content-panel-body">
+						<div class="content-panel-body-inner">
+							<p>
+								You are not playing any content, try selecting a song from your queue.
+							</p>
+						</div>
+					</div>
+				</section>
+				<section id="searchContainer" class="middle-panel content-panel site-section">
+					<div class="content-panel-header">
+						<div class="handle-wrap left-handle">
+							<button title="Make it big!" class="content-panel-handle btn-amazing">
+								<span class="glyphicon glyphicon-chevron-left"></span>
+							</button>
+						</div>
+						<form name="search-form" on-submit="search">
+							<div class="txt-amazing">
+								<input value="{{query}}" class="nav-text-input" placeholder="search...">
+							</div>
+							<button type="submit" class="btn-amazing">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+							<button type="button" class="btn-amazing" on-click="clear">
+								<span class="glyphicon glyphicon-cog"></span>
+							</button>
+						</form>
+						<div class="handle-wrap right-handle">
+							<button title="Make it big!" class="content-panel-handle btn-amazing">
+								<span class="glyphicon glyphicon-chevron-right"></span>
+							</button>
+						</div>
+					</div>
+					<div class="content-panel-body">
+						<div class="content-panel-body-inner">
+							<p>
+								No results, try searching for something else.
+							</p>
+						</div>
+					</div>
+				</section>
+				<section id="queueContainer" class="right-panel content-panel site-section">
+					<div class="content-panel-header">
+						<div class="handle-wrap left-handle">
+							<button title="Make it big!" class="content-panel-handle btn-amazing">
+								<span class="glyphicon glyphicon-chevron-left"></span>
+							</button>
+						</div>
+						<form name="queue-form" on-submit="save">
+							<div class="txt-amazing">
+								<input value="{{queueName}}" placeholder="Name your queue...">
+							</div>
+							<button type="submit" class="btn-amazing">
+								<span class="glyphicon glyphicon-floppy-save"></span>
+							</button>
+							<button type="button" class="btn-amazing" on-click="clear">
+								<span class="glyphicon glyphicon-trash"></span>
+							</button>
+						</form>
+						<div class="handle-wrap right-handle">
+							<button title="Make it big!" class="content-panel-handle btn-amazing">
+								<span class="glyphicon glyphicon-chevron-right"></span>
+							</button>
+						</div>
+					</div>
+					<div class="content-panel-body">
+						<div class="content-panel-body-inner">
+							<span class="panel-message">Your queue is empty, try adding some songs from your search results.</span>
+						</div>
+					</div>
+				</section>
+			</div>
 		</div>
-	</div>
 	<div class="modal fade" id="servicesContainer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	</div>
-	<script id="leftHandle" type="text/ractive">
-		<div class="handle-wrap left-handle">
-			<button title="Make it big!" class="content-panel-handle btn-amazing">
-				<span class="glyphicon glyphicon-chevron-left"></span>
-			</button>	
-		</div>	
-	</script>
-	<script id="rightHandle" type="text/ractive">
-		<div class="handle-wrap right-handle">
-			<button title="Make it big!" class="content-panel-handle btn-amazing">
-				<span class="glyphicon glyphicon-chevron-right"></span>
-			</button>	
-		</div>	
-	</script>
-	<script id="play" type="text/ractive">
-		<div class="content-panel-header">
-			{{> leftHandle}}
-			{{> rightHandle}}
-		</div>
-		<div class="content-panel-body">
-			<div class="content-panel-body-inner">
-			{{#content}}
-			<iframe id="soundcloudPlayer" 
-					src="https://w.soundcloud.com/player/?url=" 
-					width="100%" height="100%" scrolling="no" frameborder="no" class="hidden"></iframe>
-			<div id="youtubePlayer" class="hidden"></div>
-			{{/content}}
-			{{^content}}
-			<p>You are not playing any content, try selecting a song from your queue.</p>
-			{{/content}}
-			</div>
-		</div>
-	</script>
-	<script id="queue" type="text/ractive">
-		<div class="content-panel-header">
-			{{> leftHandle}}
-			<form name="queue-form" on-submit="save">
-				<div class="txt-amazing">
-					<input value="{{queueName}}" placeholder="Name your queue...">
-				</div>
-				<button type="submit" class="btn-amazing">
-					<span class="glyphicon glyphicon-floppy-save"></span>
-				</button>
-				<button type="button" class="btn-amazing" on-click="clear">
-					<span class="glyphicon glyphicon-trash"></span>
-				</button>	
-			</form>
-			{{> rightHandle}}
-		</div>
-		<div class="content-panel-body">
-			<div class="content-panel-body-inner">
-				<ul class="queue list-group">
-					{{#queue:i}}
-					<li on-click="play"
-							class="list-group-item content {{active == i ? 'background-primary' : ''}}"
-							data-index="{{i}}">
-						{{> contentTile}}
-						<button on-click="remove" type="button" class="btn-queue-remove">
-							<span class="glyphicon glyphicon-remove"></span>
-						</button>
-					</li>
-					{{/queue}}
-					{{^queue}}
-					<span class="panel-message">Your queue is empty, try adding some songs from your search results.</span>
-					{{/queue}}
-				</ul>	
-			</div>
-		</div>
-	</script>
-	<script id="search" type="text/ractive">
-		<div class="content-panel-header">
-			{{> leftHandle}}
-			<form name="search-form" on-submit="search">
-				<div class="txt-amazing">
-					<input value="{{query}}" class="nav-text-input" placeholder="search...">
-				</div>
-				<button type="submit" class="btn-amazing">
-					<span class="glyphicon glyphicon-search"></span>
-				</button>
-				<button type="button" class="btn-amazing" on-click="clear">
-					<span class="glyphicon glyphicon-cog"></span>
-				</button>
-			</form>
-			{{> rightHandle}}
-		</div>
-		<div class="content-panel-body">
-			<div class="content-panel-body-inner">
-				<ul class="results list-group">
-					{{#results:i}}
-					<li class="list-group-item content" on-click="addToQueue" data-index="{{i}}">
-						{{> contentTile}}
-					</li>
-					{{/results}}
-				</ul>
-				{{^results}}
-				<p>No results, try searching for something else.</p>
-				{{/results}}
-			</div>
-		</div>
-	</script>
 	<script id="services" type="text/ractive">
 		<div class="modal-dialog">
 			<div class="modal-content">
