@@ -194,7 +194,8 @@ search = new Ractive({
 	template: "#search",
 	data: {
 		query: "",
-		results: []
+		results: [],
+		message: "Search Soundcloud and Youtube at the same time. It's like wow."
 	}
 });
 
@@ -202,6 +203,7 @@ search.on('search', function(e) {
 	e.original.preventDefault();
 	//setup result handlers
 	this.set('results', []);
+	this.set('message', "Let me check on that for you.");
 	results = [];
 	calls = 2;
 	//make calls
@@ -216,6 +218,9 @@ function searchCallback(data) {
 	if (!--calls) {
 		results = shuffle(results);
 		search.set('results', results);
+		if (!results.length) {
+			search.set('message', "Wow, you suck at this game. Try looking for something better.");
+		}
 	}
 }
 
@@ -250,64 +255,48 @@ services.on('connect', function(e) {
 	}
 });
 
-/* displayl logic - later
- * You should consider the following: Give a screen size a max-active tabs, but allow all screen
- * sizes to view as little as one at a time. When aa view is hidden, turn it into a togglable tab
- * at the top of the page...or something like that
- */
-/*
-var sections = {
-	play: 0,
-	queue: 0,
-	search: 12
+/** The dumb view logic **/
+
+function removeFocus(side) {
+	$(".middle-panel").removeClass(side + '-focus');
+	$('.' + side + '-panel').removeClass(side + '-panel-focus');
+	$('.' + side + '-panel').find('.content-panel-pin').removeClass('active');	
 }
 
-function updateView(newSections) {
-	var total = 0;
-	jQuery.each(newSections, function(section, size) {
-		total += size;
-	});
-	if (total > 12) {
-		var difference = total - 12;
-		jQuery.each(newSections, function(section, size) {
-			total += size;
-		});
-	}
-	newSections = jQuery.extend(newSections, sections);
-	if (sections.length != newSections.length) return console.log('Incorrect section definition.');
-	jQuery.each(newSections, function(section, size) {
-		if (size != sections[section]) {
-			if (!size) {
-				$("#" + section + "Container").addClass('hidden');
-			} else {
-				$("#" + section + "Container").removeClass('hidden');
-			}
-			$("#" + section + "Container").removeClass("col-md-" + sections[section]);
-			$("#" + section + "Container").addClass("col-md-" + size);
-		}
-	});
-	sections = newSections;
+function swapPanelWithMiddle($panel) {
+	var side = $panel.hasClass('left-panel') ? 'left' : 'right',
+		$middle = $(".middle-panel");
+	
+	$middle.removeClass('middle-panel');
+	$panel.removeClass(side + "-panel");
+	$middle.addClass(side + "-panel");
+	$panel.addClass('middle-panel');	
 }
-
-function openView(id) {
-	jQuery("#" + id).removeClass('hidden');
-}
-*/
 
 $(".content-panel-handle").click(function() {
 	var $panel = $(this).closest('.site-section'),
-		currentClass = $panel.hasClass('left-panel') ? 'left-panel' : 'right-panel',
-		middle = $(".middle-panel").removeClass('middle-panel');
-
-	middle.addClass(currentClass);
-	$panel.removeClass(currentClass);
-	$panel.addClass('middle-panel');
+		side = $panel.hasClass('left-panel') ? 'left' : 'right';
+	//reset pin stuff
+	removeFocus(side);
+	//move panels
+	swapPanelWithMiddle($panel);
 });
 
 $(".content-panel-pin").click(function() {
 	var $panel = $(this).closest('.site-section'),
-		side = $panel.hasClass('left-panel') ? 'left' : 'right';
-	
+		side = $panel.hasClass('left-panel') ? 'left' : 'right',
+		otherSide = side == 'left' ? 'right' : 'left';
+	//remove other pin, if it exists
+	removeFocus(otherSide);
+	//add this pin
+	$(this).toggleClass('active');
 	$panel.toggleClass(side + '-panel-focus');
 	$(".middle-panel").toggleClass(side + '-focus');
 });
+
+//on mobile, clicking panel triggers the switch
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+	$(".left-panel,.right-panel").click(function() {
+		swapPanelWithMiddle($(this));
+	});
+}

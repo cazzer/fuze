@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 	<title>Fuze</title>
 	<link rel="stylesheet" href="css/normalize.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
@@ -40,7 +40,13 @@
 	</script>
 	<script id="play" type="text/ractive">
 		<div class="content-panel-header">
+			<button class="content-panel-icon btn-amazing">
+				<span class="glyphicon glyphicon-play"></span>
+			</button>
 			{{> leftHandle}}
+			<form name="play-form">
+				
+			</form>
 			{{> rightHandle}}
 		</div>
 		<div class="content-panel-body">
@@ -59,6 +65,9 @@
 	</script>
 	<script id="queue" type="text/ractive">
 		<div class="content-panel-header">
+			<button class="content-panel-icon btn-amazing">
+				<span class="glyphicon glyphicon-list"></span>
+			</button>
 			{{> leftHandle}}
 			<form name="queue-form" on-submit="save">
 				<div class="txt-amazing">
@@ -79,7 +88,7 @@
 				<ul class="queue list-group">
 					{{#queue:i}}
 					<li on-click="play"
-							class="list-group-item content {{active == i ? 'background-primary' : ''}}"
+							class="content {{active == i ? 'background-primary' : ''}}"
 							data-index="{{i}}">
 						{{> contentTile}}
 						<button on-click="remove" type="button" class="btn-queue-remove">
@@ -96,6 +105,9 @@
 	</script>
 	<script id="search" type="text/ractive">
 		<div class="content-panel-header">
+			<button class="content-panel-icon btn-amazing">
+				<span class="glyphicon glyphicon-search"></span>
+			</button>
 			{{> leftHandle}}
 			<form name="search-form" on-submit="search">
 				<div class="txt-amazing">
@@ -114,13 +126,13 @@
 			<div class="content-panel-body-inner">
 				<ul class="results list-group">
 					{{#results:i}}
-					<li class="list-group-item content" on-click="addToQueue" data-index="{{i}}">
+					<li class="content" on-click="addToQueue" data-index="{{i}}">
 						{{> contentTile}}
 					</li>
 					{{/results}}
 				</ul>
 				{{^results}}
-				<p class="panel-message">No results, try searching for something else.</p>
+				<p class="panel-message">{{message}}</p>
 				{{/results}}
 			</div>
 		</div>
@@ -146,30 +158,32 @@
 		</div>
 	</script>
 	<script type="text/html" id="contentTile">
-		<div class="bignail col-xs-3">
-			<img src="{{image}}" alt="content image">					
-		</div>
-		<div class="col-xs-9">
-			<h5 class="title">{{title}}</h5>
-			{{#description}}
-			<p class="description hidden-sm">{{description}}</p>
-			{{/description}}
-			<table class="table table-condensed hidden-sm" style="font-size: .6em;">
-				<tbody>
-					{{#likes}}
-					<tr>
-						<th>likes</th>
-						<td>{{likes}}</td>
-					</tr>
-					{{/likes}}
-					{{#plays}}
-					<tr>
-						<th>plays</th>
-						<td>{{plays}}</td>
-					</tr>
-					{{/plays}}
-				</tbody>
-			</table>
+		<div class="content-inner">
+			<div class="bignail">
+				<img src="{{image ? image : 'images/album-art-missing.png'}}" alt="{{title}}">					
+			</div>
+			<div class="content-details">
+				<h5 class="title">{{title}}</h5>
+				{{#description}}
+				<p class="description">{{description}}</p>
+				{{/description}}
+				<table class="table table-condensed" style="font-size: .6em;">
+					<tbody>
+						{{#likes}}
+						<tr>
+							<th>likes</th>
+							<td>{{likes}}</td>
+						</tr>
+						{{/likes}}
+						{{#plays}}
+						<tr>
+							<th>plays</th>
+							<td>{{plays}}</td>
+						</tr>
+						{{/plays}}
+					</tbody>
+				</table>
+			</div>	
 		</div>
 	</script>
 	<script src="js/libs/jquery-1.10.2.js"></script>
