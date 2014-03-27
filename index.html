@@ -90,10 +90,7 @@
 					<li on-click="play"
 							class="content {{active == i ? 'background-primary' : ''}}"
 							data-index="{{i}}">
-						{{> contentTile}}
-						<button on-click="remove" type="button" class="btn-queue-remove">
-							<span class="glyphicon glyphicon-remove"></span>
-						</button>
+						{{> queueTile}}
 					</li>
 					{{/queue}}
 				</ul>
@@ -131,9 +128,9 @@
 					</li>
 					{{/results}}
 				</ul>
-				{{^results}}
+				{{#message}}
 				<p class="panel-message">{{message}}</p>
-				{{/results}}
+				{{/message}}
 			</div>
 		</div>
 	</script>
@@ -163,29 +160,54 @@
 				<img src="{{image ? image : 'images/album-art-missing.png'}}" alt="{{title}}">					
 			</div>
 			<div class="content-details">
-				<h5 class="title">{{title}}</h5>
-				{{#description}}
-				<p class="description">{{description}}</p>
-				{{/description}}
-				<table class="table table-condensed" style="font-size: .6em;">
+				<h4 class="title" title="{{title}}">{{title}}</h4>
+				<span class="ratio">{{ratio}}</span>
+				<table class="table-awesome">
 					<tbody>
-						{{#likes}}
 						<tr>
-							<th>likes</th>
-							<td>{{likes}}</td>
+							<th>{{likes}}</th>
+							<td><span class="glyphicon glyphicon-heart"></span></td>
 						</tr>
-						{{/likes}}
-						{{#plays}}
 						<tr>
-							<th>plays</th>
-							<td>{{plays}}</td>
+							<th>{{plays}}</th>
+							<td><span class="glyphicon glyphicon-play"></span></td>
 						</tr>
-						{{/plays}}
+						<tr>
+
+							<th>{{comments}}</th>
+							<td><span class="glyphicon glyphicon-comment"></span></td>
+						</tr>
 					</tbody>
 				</table>
 			</div>	
 		</div>
 	</script>
+	<script type="text/html" id="queueTile">
+		<div class="content-inner">
+			<div class="bignail">
+				<img src="{{image ? image : 'images/album-art-missing.png'}}" alt="{{title}}">					
+			</div>
+			<div class="content-details">
+				<h4 class="title" title="{{title}}">{{title}}</h4>
+				<span class="ratio">{{i + 1}}</span>
+			</div>	
+			<button on-click="remove" type="button" class="btn-queue-remove">
+				<span class="glyphicon glyphicon-remove"></span>
+			</button>
+		</div>
+	</script>
+	<section id="tool-tip">
+		<div class="tip">
+			<ul>
+				<li>
+					<button class="play">Play Now</button>
+				</li>
+				<li>
+					<button class="queue">Queue</button>
+				</li>
+			</ul>
+		</div>
+	</section>
 	<script src="js/libs/jquery-1.10.2.js"></script>
 	<script src="js/libs/jquery.cookie.js"></script>
 	<script src="js/libs/Ractive.js"></script>

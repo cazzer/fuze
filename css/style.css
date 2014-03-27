@@ -82,8 +82,9 @@ b.status {
 
 .btn-queue-remove {
 	position: absolute;
-	top: 0px;
-	right: 0px;
+	bottom: 4px;
+	right: 4px;
+	font-size: 2em;
 	background-color: transparent;
 	border: none;
 	text-shadow: 0 0 3px #FFFFFF;
@@ -142,6 +143,8 @@ b.status {
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
+	
+	margin-top: 6px;
 }
 
 .bignail {
@@ -242,6 +245,11 @@ b.status {
 .middle-panel .panel-message {
 	margin: 20px 20%;
 	width: 60%;
+	position: absolute;
+	background-color: #adadad;
+	border-radius: 4px;
+	padding: 10px 0;
+	z-index: 1000;
 }
 /* Panel Zones */
 .left-panel {
@@ -380,4 +388,71 @@ b.status {
 }
 .btn-amazing.active {
 	color: #0099FF;
+}
+
+#tool-tip {
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	
+	z-index: 2;
+	
+	display: none;
+}
+#tool-tip .tip {
+    position: absolute;
+    top: 5px;
+    left: 20px;
+}
+#tool-tip ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    
+    background-color: white;
+    width: 200px;
+}
+#tool-tip button {
+    font-size: 1.2em;
+    text-align: center;
+    padding: 6px;
+    text-align: center;
+    display: block;
+    width: 100%;
+    background-color: transparent;
+    
+    border: thin solid #adadad;
+}
+#tool-tip li:first-child button {
+    border-bottom: none;
+    border-radius: 2px 2px 0 0;
+}
+#tool-tip li:last-child button {
+	border-radius: 0 0 2px 2px;
+}
+#tool-tip button:hover {
+	background-color: #eee;
+}
+
+.content-details .ratio {
+	left: 0;
+	display: block;
+	position: absolute;
+	font-size: 3.4em;
+	text-align: center;
+	width: 100%;
+}
+
+table.table-awesome {
+	font-size: 1.3em;
+	float: right;
+}
+table.table-awesome th {
+	text-align: right;
+	padding-right: 4px;
+}
+table.table-awesome td {
+	color: #7b7b7b;
 }
