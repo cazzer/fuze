@@ -243,6 +243,8 @@ search.on('search', function(e) {
 	api.youtube.search(this.get('query'), searchCallback);
 });
 
+$("#query-value").focus();
+
 function getMore() {
 	search.set('message', "Gimme a sec...");
 	search.set('offset', search.get('offset') + search.get('limit'));	
