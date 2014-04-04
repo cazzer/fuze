@@ -92,7 +92,7 @@ var api =  {
 							title: obj.snippet.title,
 							image: image,
 							description: obj.snippet.description,
-							id: obj.id.videoId,
+							id: obj.id,
 							likes: niceName.number(obj.statistics.likeCount),
 							dislikes: niceName.number(obj.statistics.dislikeCount),
 							plays: niceName.number(obj.statistics.viewCount),
