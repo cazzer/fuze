@@ -1,7 +1,7 @@
 fuze
 ====
 
-**In one sentense:** Consolidated music API search, queue, and playback.
+**In one sentence:** Consolidated music API search, queue, and playback.
 
 **Dont believe me?** Check out the live demo [here](http://fuze.dayoftheduck.com). *Currently, mobile support is limited.*
 
