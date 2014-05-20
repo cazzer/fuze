@@ -1,0 +1,16 @@
+.main-content {
+	padding-top: 65px;
+}
+
+.fuzzyTrack {
+	position: relative;
+	overflow: hidden;
+	padding: 0 !important;
+	padding-left: 15px;
+	img {
+		position: absolute;
+		top: 0;
+		right: 0;
+		height: 100%;
+	}
+}

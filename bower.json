@@ -1,0 +1,34 @@
+{
+  "name": "fuze",
+  "version": "0.3.0",
+  "homepage": "fuze.dayoftheduck.com",
+  "authors": [
+    "Caleb Brewer <calebthebrewer@gmail.com>"
+  ],
+  "description": "The web's music player.",
+  "main": "index.html",
+  "keywords": [
+    "music",
+    "api",
+    "aggregate",
+    "youtube",
+    "soundcloud",
+    "last.fm"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.16",
+    "angular-route": "~1.2.16",
+    "bootstrap": "~3.1.1",
+    "angular-bootstrap": "~0.11.0",
+    "fuzzyset.js": "*"
+  }
+}

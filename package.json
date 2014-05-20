@@ -1,0 +1,40 @@
+{
+  "name": "fuze",
+  "version": "0.3.0",
+  "description": "The web's music player.",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/calebthebrewer/fuze.git"
+  },
+  "keywords": [
+    "music",
+    "api",
+    "aggregate",
+    "youtube",
+    "soundcloud",
+    "last.fm"
+  ],
+  "author": "Caleb Brewer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/calebthebrewer/fuze/issues"
+  },
+  "homepage": "https://github.com/calebthebrewer/fuze",
+  "devDependencies": {
+    "gulp-sass": "~0.7.1",
+    "gulp-csslint": "~0.1.4",
+    "gulp-jshint": "~1.6.1",
+    "gulp-minify-css": "~0.3.4",
+    "gulp-uglify": "~0.3.0",
+    "gulp-if": "~1.2.0",
+    "gulp-concat": "~2.2.0",
+    "run-sequence": "~0.3.6",
+    "gulp-watch": "~0.6.4",
+    "gulp-clean": "~0.2.4",
+    "event-stream": "~3.1.5"
+  }
+}
