@@ -1,0 +1,137 @@
+@import "mixins/transition";
+
+/** Colors **/
+$background-color: #243540;
+$text-color: #92D6FF;
+$text-hover-color: #83C0E5;
+$color-1: #496B7F;
+$color-2: #6DA0BF;
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	background-color: $background-color;
+	color: $text-color;
+}
+
+.navbar-fixed-top {
+	background-color: transparent;
+	border: none;
+	.btn-link {
+		padding: 15px;
+		border: none;
+	}
+}
+
+input[type="text"] {
+	&.input-breakdown {
+		background-color: transparent;
+		border: none;
+		box-shadow: none;
+		border-bottom: $color-1 2px solid;
+		border-radius: 0;
+		font-size: 1.5em;
+		color: $color-2;
+
+		&:focus {
+			border-color: $color-2;
+			color: $text-hover-color;
+		}
+	}
+}
+
+.btn-breakdown {
+	background-color: $color-1;
+
+	&:hover {
+		background-color: $color-2;
+	}
+}
+
+.main-content {
+	padding-top: 65px;
+	height: 100%;
+	position: relative;
+}
+
+.node-list {
+	.animate-repeat.ng-move,
+	.animate-repeat.ng-enter,
+	.animate-repeat.ng-leave {
+		@include transition(all, 0.7s, ease-in-out);
+	}
+
+	.animate-repeat.ng-leave.ng-leave-active,
+	.animate-repeat.ng-move,
+	.animate-repeat.ng-enter {
+		opacity:0;
+	}
+
+	.animate-repeat.ng-leave,
+	.animate-repeat.ng-move.ng-move-active,
+	.animate-repeat.ng-enter.ng-enter-active {
+		opacity:1;
+	}
+}
+
+.angular-ui-tree-nodes .angular-ui-tree-nodes {
+	padding-left: 0;
+	.angular-ui-tree-nodes .angular-ui-tree-nodes {
+		font-size: .5em;
+	}
+}
+
+.form-signin {
+	margin: 0 auto;
+	max-width: 330px;
+	padding: 15px;
+}
+
+.form-signin .form-signin-heading, .form-signin .checkbox {
+	margin-bottom: 10px;
+}
+
+.form-signin .checkbox {
+	font-weight: normal;
+}
+
+.form-signin .form-control {
+	box-sizing: border-box;
+	font-size: 16px;
+	height: auto;
+	padding: 10px;
+	position: relative;
+}
+
+.form-signin .form-control:focus {
+	z-index: 2;
+}
+
+.form-signin input[type="email"] {
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	margin-bottom: -1px;
+}
+
+.form-signin input[type="password"] {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	margin-bottom: 10px;
+}
+
+//effect classes
+.animate {
+	@include transition(all, 0.7s, ease-in-out);
+	position: relative;
+	top: 0;
+	left: 0;
+}
+
+.fade-out-drop {
+	visibility: hidden;
+	opacity: 0;
+	top: 25px;
+}

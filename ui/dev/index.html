@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Fuze</title>
+	<link rel="stylesheet" href="vendor/vendor.css">
+	<link rel="stylesheet" href="app.css">
+</head>
+<body ng-app="Fuze">
+<header>
+	<nav ng-controller="navigation" role="navigation" class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button data-target=".navbar-collapse" data-toggle="collapse" ng-click="collapse=!collapse" class="navbar-toggle" type="button">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a href="#" class="navbar-brand">Breakdown</a>
+			</div>
+			<div class="navbar-collapse collapse" collapse="!collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="#/search">Search</a></li>
+					<li class="dropdown">
+						<a data-toggle="dropdown" class="dropdown-toggle" href="#">Dropdown <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="#/connect">Connect</a></li>
+							<li class="divider"></li>
+							<li class="dropdown-header">Nav header</li>
+							<li><a href="#">Separated link</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+		<!--/.container-fluid -->
+	</nav>
+</header>
+<div class="container-fluid main-content" ng-view></div>
+<script src="vendor/vendor.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
