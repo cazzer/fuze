@@ -1,6 +1,14 @@
-<form role="form" class="form-inline" ng-submit="search(q)">
+<form id="search-form" role="form" class="form-inline" ng-submit="search(q)">
 	<div class="form-group">
 		<input type="text" class="form-control" ng-model="q" placeholder="search">
 		<button type="submit" class="btn btn-primary">Search</button>
 	</div>
 </form>
+<ul class="tile-group">
+	<li class="tile-group-item animate-repeat" ng-repeat="artist in artists">
+		<div class="tile-group-item-image">
+			<img ng-src="{{artist.image[3]['#text']}}">
+		</div>
+		<div class="tile-group-item-label">{{artist.name}}</div>
+	</li>
+</ul>

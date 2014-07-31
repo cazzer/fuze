@@ -18,11 +18,11 @@ angular.module('Fuze', [
 		$scope.search = function(q) {
 			$http({
 				method: 'GET',
-				url: '/api/search',
+				url: '/api/artists',
 				params: {q: q}
 			})
 				.success(function(data) {
-					$scope.results = data;
+					$scope.artists = data;
 				});
 		};
 	}]);
