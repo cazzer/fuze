@@ -4,30 +4,24 @@
 		<button type="submit" class="btn btn-primary">Search</button>
 	</div>
 </form>
-<tabset>
-	<tab heading="Artists">
-		<ul class="tile-group">
-			<li ng-repeat="artist in artists"
-				class="tile-group-item fade-out-drop"
-				cdb-fx="removeClass:fade-out-drop,after:{{.05*$index}}"
-				ng-click="getArtistTracks(artist.name)">
-				<div class="tile-group-item-image">
-					<img ng-src="{{artist.image[3]['#text']}}">
-				</div>
-				<div class="tile-group-item-label">{{artist.name}}</div>
-			</li>
-		</ul>
-	</tab>
-	<tab heading="Tracks">
-		<ul class="tile-group">
-			<li ng-repeat="track in tracks"
-				class="tile-group-item fade-out-drop"
-				cdb-fx="removeClass:fade-out-drop,after:{{.05*$index}}">
-				<div class="tile-group-item-image">
-					<img ng-src="{{track.image[3]['#text']}}">
-				</div>
-				<div class="tile-group-item-label">{{track.name}}</div>
-			</li>
-		</ul>
-	</tab>
-</tabset>
+<ul class="tile-group">
+	<li ng-repeat="track in tracks"
+		class="tile-group-item fade-out-drop"
+		cdb-fx="removeClass:fade-out-drop,after:{{.03*$index}}">
+		<div class="tile-group-item-image">
+			<img ng-src="{{track.image[3]['#text']}}">
+		</div>
+		<div class="tile-group-item-label">{{track.name}}</div>
+	</li>
+</ul>
+<ul class="tile-group">
+	<li ng-repeat="artist in artists"
+		class="tile-group-item fade-out-drop"
+		cdb-fx="removeClass:fade-out-drop,after:{{.03*$index}};addClass:fade-out-drop,on:getArtistTopTracks"
+		ng-click="getArtistTracks(artist.name)">
+		<div class="tile-group-item-image">
+			<img ng-src="{{artist.image[3]['#text']}}">
+		</div>
+		<div class="tile-group-item-label">{{artist.name}}</div>
+	</li>
+</ul>

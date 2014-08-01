@@ -16,6 +16,7 @@ angular.module('Fuze', [
 	.controller('player', ['$scope', '$http', function($scope, $http) {
 
 		$scope.search = function(q) {
+			$scope.tracks = [];
 			$http({
 				method: 'GET',
 				url: '/api/artists',
@@ -27,6 +28,7 @@ angular.module('Fuze', [
 		};
 
 		$scope.getArtistTracks = function(q) {
+			$scope.$broadcast('getArtistTopTracks');
 			$http({
 				method: 'GET',
 				url: '/api/toptracks',
@@ -50,6 +52,10 @@ angular.module('Fuze', [
 						case 'removeClass':
 							return function() {
 								element.removeClass(effectParams[1]);
+							};
+						case 'addClass':
+							return function() {
+								element.addClass(effectParams[1]);
 							};
 						default:
 							console.error('Effect ' + effectParams[0] + ' is not defined.');
