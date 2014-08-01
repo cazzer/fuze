@@ -29,6 +29,22 @@ api.get('/api/artists', function(req, res) {
 	});
 });
 
+api.get('/api/toptracks', function(req, res) {
+	lastfm.request('artist.getTopTracks', {
+		artist: req.query.q,
+		handlers: {
+			success: function(data) {
+				var tracks = data.toptracks.track
+
+				res.send(tracks);
+			},
+			error: function(error) {
+				res.send(error);
+			}
+		}
+	});
+});
+
 //kick this puppy off
 api.listen(3001);
 console.log('listenin\', bitch');

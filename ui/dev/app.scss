@@ -200,3 +200,16 @@ input[type="text"] {
 		}
 	}
 }
+
+.animate {
+	@include transition(all, 0.7s, ease-in-out);
+	position: relative;
+	top: 0;
+	left: 0;
+}
+
+.fade-out-drop {
+	visibility: hidden;
+	opacity: 0;
+	top: 25px;
+}
