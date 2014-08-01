@@ -1,4 +1,6 @@
 //define some vars
+var port = 3000;
+
 var express = require('express');
 var LastFmNode = require('lastfm').LastFmNode;
 var config = require('./server/lastfm.config.js');
@@ -46,5 +48,5 @@ api.get('/api/toptracks', function(req, res) {
 });
 
 //kick this puppy off
-api.listen(3001);
+api.listen(port);
 console.log('listenin\', bitch');

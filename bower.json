@@ -1,0 +1,24 @@
+{
+  "name": "fuze",
+  "version": "0.0.0",
+  "homepage": "https://github.com/calebthebrewer/fuze",
+  "authors": [
+    "Caleb Brewer <calebthebrewer@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.21",
+    "angular-route": "~1.2.21",
+    "angular-animate": "~1.2.21",
+    "angular-bootstrap": "~0.11.0",
+    "angular-ui-tree": "~2.1.5",
+    "bootstrap": "~3.2.0"
+  }
+}
